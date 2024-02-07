@@ -1,6 +1,7 @@
 // Importing necessary dependencies and components
 import React from 'react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Header from './components/Header';
 import AddButton from './components/Buttons/AddButton';
 import CancelButton from './components/Buttons/CancelButton';
@@ -8,16 +9,17 @@ import ClearAllBtn from './components/Buttons/ClearAllBtn';
 import TasksList from './components/TasksList';
 import NewTask from './components/NewTask';
 import { v4 as uuidv4 } from 'uuid';
+// import { addBtn } from './features/stateSlice';
 
 // Main App component
 function App() {
   // State variables for managing tasks and UI state
   const [task, setTask] = useState('');
   const [dayTime, setDayTime] = useState('');
-  const [check, setCheck] = useState(false);
-  const [newTasks, setNewTasks] = useState([]);
-  const [addBtn, setAddBtn] = useState(true);
 
+  const [newTasks, setNewTasks] = useState([]);
+
+  const addBtn = useSelector((change) => change.state.addBtn);
   // Function to remove a task based on its ID
   const removeItem = (id) => {
     setNewTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
@@ -29,10 +31,12 @@ function App() {
   };
 
   // Function to update the task list with a new task
-  const updatedTaskList = (id, newTask, newDayTime, newCheck) => {
+  const updatedTaskList = (id, newTask, newDayTime, checked) => {
+    console.log(checked);
     setNewTasks((prevTasks) => [
       ...prevTasks,
-      { id: id, task: newTask, day_Time: newDayTime, checked: newCheck },
+      { id: id, task: newTask, day_Time: newDayTime, checked: checked },
+     
     ]);
   };
 
@@ -54,11 +58,11 @@ function App() {
             <div className="flex justify-center my-[2vh]">
               {/* Conditionally render either AddButton or CancelButton and NewTask components */}
               {addBtn ? (
-                <AddButton addBtn={addBtn} setAddBtn={setAddBtn} />
+                <AddButton />
               ) : (
                 <>
                   <div>
-                    <CancelButton addBtn={addBtn} setAddBtn={setAddBtn} />
+                    <CancelButton />
                     <div className="my-[2vh]">
                       {/* NewTask component for adding a new task */}
                       <NewTask
@@ -67,8 +71,6 @@ function App() {
                         setTask={setTask}
                         dayTime={dayTime}
                         setDayTime={setDayTime}
-                        check={check}
-                        setCheck={setCheck}
                         updatedTaskList={updatedTaskList}
                       />
                     </div>

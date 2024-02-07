@@ -1,9 +1,11 @@
 // Importing React and the IoMdCloseCircle icon from the react-icons/io library
 import React from 'react';
 import { IoMdCloseCircle } from 'react-icons/io';
-
+import { addBtn } from '../../app/stateSlice';
+import { useDispatch } from 'react-redux';
 // Functional component for the CancelButton
-function CancelButton({ addBtn, setAddBtn }) {
+function CancelButton() {
+  const dispatch = useDispatch();
   return (
     <>
       {/* Container for the CancelButton */}
@@ -13,7 +15,7 @@ function CancelButton({ addBtn, setAddBtn }) {
           className="md:hidden"
           onClick={() => {
             // Set addBtn state to true when the button is clicked
-            setAddBtn(true);
+            dispatch(addBtn(true));
           }}
         >
           {/* Display the IoMdCloseCircle icon with specified color and size */}
@@ -25,7 +27,7 @@ function CancelButton({ addBtn, setAddBtn }) {
           className="hidden md:flex"
           onClick={() => {
             // Set addBtn state to true when the button is clicked
-            setAddBtn(true);
+            dispatch(addBtn(true));
           }}
         >
           {/* Display the IoMdCloseCircle icon with specified color and size */}

@@ -1,21 +1,23 @@
 import React from 'react';
 import { useState } from 'react';
 import TaskAdded from './TaskAdded';
+import { useSelector, useDispatch } from 'react-redux';
+import { check } from '../app/stateSlice';
+import { now } from '../app/stateSlice';
+// code to push to an array
 
+// import { checked } from '../app/stateSlice';
 // Functional component for the NewTask form
-function NewTask({
-  id,
-  task,
-  setTask,
-  dayTime,
-  setDayTime,
-  check,
-  setCheck,
-  updatedTaskList,
-}) {
+function NewTask({ id, task, setTask, dayTime, setDayTime, updatedTaskList }) {
   // State to track the added task message
   const [addedTask, setAddedTask] = useState('');
 
+  const checked = useSelector((change) => change.state.check);
+  
+  // console.log(checked);
+  // const now = useSelector((change) => change.state.checked);
+
+  const dispatch = useDispatch();
   // JSX rendering for the NewTask component
   return (
     // Container for the NewTask form with styling
@@ -61,9 +63,9 @@ function NewTask({
         <label htmlFor="reminder-checkbox">
           <input
             type="checkbox"
-            checked={check}
+            checked={checked}
             onChange={(e) => {
-              setCheck(e.target.checked);
+              dispatch(check(e.target.checked));
             }}
             className="w-4 h-4 checked:bg-black bg-gray-900 border-[#083344] rounded focus:ring-[#083344] focus:ring-2"
           />
@@ -77,12 +79,15 @@ function NewTask({
           // Clear input fields and checkbox, display TaskAdded message temporarily
           setTask('');
           setDayTime('');
-          setCheck();
+          // dispatch(check());
+          // dispatch(now(checked));
           setAddedTask(<TaskAdded />);
 
           // After a delay, update the task list with the new task and hide the TaskAdded message
           setTimeout(() => {
-            updatedTaskList(id, task, dayTime, check);
+            // dispatch(checked(radioBtn));
+            // dis
+            updatedTaskList(id, task, dayTime);
             setAddedTask('');
           }, 2500);
         }}

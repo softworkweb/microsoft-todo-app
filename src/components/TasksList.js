@@ -1,9 +1,10 @@
 // Importing React and the RemoveBtn component
 import React from 'react';
 import RemoveBtn from './Buttons/RemoveBtn';
-
+import { useSelector } from 'react-redux';
 // Functional component for rendering individual task items
-function TasksList({ id, task, day_Time, checked, removeItem }) {
+function TasksList({ id, task, day_Time, removeItem }) {
+  const checked = useSelector((change) => change.state.check);
   return (
     // Fragment to group multiple elements without adding an extra node to the DOM
     <>

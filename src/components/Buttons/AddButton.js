@@ -1,9 +1,12 @@
 // Importing React and the IoMdAddCircle icon from the react-icons/io library
 import React from 'react';
 import { IoMdAddCircle } from 'react-icons/io';
+import { addBtn } from '../../app/stateSlice';
+import { useDispatch } from 'react-redux';
 
 // Functional component for the AddButton
-function AddButton({ addBtn, setAddBtn }) {
+function AddButton() {
+  const dispatch = useDispatch();
   return (
     <>
       {/* Container for the AddButton */}
@@ -13,7 +16,7 @@ function AddButton({ addBtn, setAddBtn }) {
           className="md:hidden"
           onClick={() => {
             // Set addBtn state to false when the button is clicked
-            setAddBtn(false);
+            dispatch(addBtn(false));
           }}
         >
           {/* Display the IoMdAddCircle icon with specified color and size */}
@@ -25,7 +28,7 @@ function AddButton({ addBtn, setAddBtn }) {
           className="hidden md:flex"
           onClick={() => {
             // Set addBtn state to false when the button is clicked
-            setAddBtn(false);
+            dispatch(addBtn(false));
           }}
         >
           {/* Display the IoMdAddCircle icon with specified color and size */}
